@@ -1,0 +1,72 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimPressUnitTests", "SimPressUnitTests\SimPressUnitTests.csproj", "{0548CB69-B06E-4B06-A838-C7D3BB227B93}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8ACE5245-6163-4F96-96EB-D96822572D7E} = {8ACE5245-6163-4F96-96EB-D96822572D7E}
+		{AB84146E-4CFD-4264-B0B2-9DA029727074} = {AB84146E-4CFD-4264-B0B2-9DA029727074}
+		{89153B95-D54F-43FC-8A29-6E2020327A3E} = {89153B95-D54F-43FC-8A29-6E2020327A3E}
+		{7CEB33FE-2DFE-45A3-BC00-878647E01CAA} = {7CEB33FE-2DFE-45A3-BC00-878647E01CAA}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A3C192C3-6427-4B77-9A39-7B455039040C}"
+	ProjectSection(SolutionItems) = preProject
+		Local.testsettings = Local.testsettings
+		SimPressSolution.vsmdi = SimPressSolution.vsmdi
+		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimPressDomainModel", "SimPressDomainModel\SimPressDomainModel.csproj", "{8ACE5245-6163-4F96-96EB-D96822572D7E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AB84146E-4CFD-4264-B0B2-9DA029727074} = {AB84146E-4CFD-4264-B0B2-9DA029727074}
+		{7CEB33FE-2DFE-45A3-BC00-878647E01CAA} = {7CEB33FE-2DFE-45A3-BC00-878647E01CAA}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimPressBusinessLogic", "SimPressBusinessLogic\SimPressBusinessLogic.csproj", "{89153B95-D54F-43FC-8A29-6E2020327A3E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8ACE5245-6163-4F96-96EB-D96822572D7E} = {8ACE5245-6163-4F96-96EB-D96822572D7E}
+		{AB84146E-4CFD-4264-B0B2-9DA029727074} = {AB84146E-4CFD-4264-B0B2-9DA029727074}
+		{7CEB33FE-2DFE-45A3-BC00-878647E01CAA} = {7CEB33FE-2DFE-45A3-BC00-878647E01CAA}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepositoryInterfaces", "RepositoryInterfaces\RepositoryInterfaces.csproj", "{7CEB33FE-2DFE-45A3-BC00-878647E01CAA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AB84146E-4CFD-4264-B0B2-9DA029727074} = {AB84146E-4CFD-4264-B0B2-9DA029727074}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entities.csproj", "{AB84146E-4CFD-4264-B0B2-9DA029727074}"
+EndProject
+Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = SimPressSolution.vsmdi
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0548CB69-B06E-4B06-A838-C7D3BB227B93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0548CB69-B06E-4B06-A838-C7D3BB227B93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0548CB69-B06E-4B06-A838-C7D3BB227B93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0548CB69-B06E-4B06-A838-C7D3BB227B93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8ACE5245-6163-4F96-96EB-D96822572D7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8ACE5245-6163-4F96-96EB-D96822572D7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8ACE5245-6163-4F96-96EB-D96822572D7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8ACE5245-6163-4F96-96EB-D96822572D7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89153B95-D54F-43FC-8A29-6E2020327A3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89153B95-D54F-43FC-8A29-6E2020327A3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89153B95-D54F-43FC-8A29-6E2020327A3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89153B95-D54F-43FC-8A29-6E2020327A3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CEB33FE-2DFE-45A3-BC00-878647E01CAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CEB33FE-2DFE-45A3-BC00-878647E01CAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CEB33FE-2DFE-45A3-BC00-878647E01CAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CEB33FE-2DFE-45A3-BC00-878647E01CAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB84146E-4CFD-4264-B0B2-9DA029727074}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB84146E-4CFD-4264-B0B2-9DA029727074}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB84146E-4CFD-4264-B0B2-9DA029727074}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB84146E-4CFD-4264-B0B2-9DA029727074}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

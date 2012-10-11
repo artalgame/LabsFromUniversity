@@ -1,0 +1,380 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SimPressDataBaseModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="SimPressDataBaseModelStoreContainer">
+          <EntitySet Name="Comments" EntityType="SimPressDataBaseModel.Store.Comments" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Likes" EntityType="SimPressDataBaseModel.Store.Likes" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Presentations" EntityType="SimPressDataBaseModel.Store.Presentations" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Users" EntityType="SimPressDataBaseModel.Store.Users" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Comments_Presentations" Association="SimPressDataBaseModel.Store.FK_Comments_Presentations">
+            <End Role="Presentations" EntitySet="Presentations" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comments_Users" Association="SimPressDataBaseModel.Store.FK_Comments_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Likes_Presentations" Association="SimPressDataBaseModel.Store.FK_Likes_Presentations">
+            <End Role="Presentations" EntitySet="Presentations" />
+            <End Role="Likes" EntitySet="Likes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Likes_Users" Association="SimPressDataBaseModel.Store.FK_Likes_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Likes" EntitySet="Likes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Presentations_Presentations" Association="SimPressDataBaseModel.Store.FK_Presentations_Presentations">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Presentations" EntitySet="Presentations" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Comments">
+          <Key>
+            <PropertyRef Name="CommentId" />
+          </Key>
+          <Property Name="CommentId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PresentationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Text" Type="nvarchar" Nullable="false" MaxLength="1000" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Likes">
+          <Key>
+            <PropertyRef Name="LikeId" />
+          </Key>
+          <Property Name="LikeId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PresentationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Presentations">
+          <Key>
+            <PropertyRef Name="PresentationId" />
+          </Key>
+          <Property Name="PresentationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" MaxLength="300" />
+          <Property Name="Tags" Type="nvarchar" MaxLength="100" />
+          <Property Name="SlidesJSON" Type="text" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="30" />
+          <Property Name="PasswordHash" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="PasswordSalt" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Info" Type="nvarchar" Nullable="false" MaxLength="300" />
+          <Property Name="IsApproved" Type="bit" Nullable="false" />
+          <Property Name="Role" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Comments_Presentations">
+          <End Role="Presentations" Type="SimPressDataBaseModel.Store.Presentations" Multiplicity="1" />
+          <End Role="Comments" Type="SimPressDataBaseModel.Store.Comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Presentations">
+              <PropertyRef Name="PresentationId" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="PresentationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comments_Users">
+          <End Role="Users" Type="SimPressDataBaseModel.Store.Users" Multiplicity="1" />
+          <End Role="Comments" Type="SimPressDataBaseModel.Store.Comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Likes_Presentations">
+          <End Role="Presentations" Type="SimPressDataBaseModel.Store.Presentations" Multiplicity="1" />
+          <End Role="Likes" Type="SimPressDataBaseModel.Store.Likes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Presentations">
+              <PropertyRef Name="PresentationId" />
+            </Principal>
+            <Dependent Role="Likes">
+              <PropertyRef Name="PresentationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Likes_Users">
+          <End Role="Users" Type="SimPressDataBaseModel.Store.Users" Multiplicity="1" />
+          <End Role="Likes" Type="SimPressDataBaseModel.Store.Likes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Likes">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Presentations_Presentations">
+          <End Role="Users" Type="SimPressDataBaseModel.Store.Users" Multiplicity="1" />
+          <End Role="Presentations" Type="SimPressDataBaseModel.Store.Presentations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Presentations">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SimPressDataBaseModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="SimPressDataBaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Comments" EntityType="SimPressDataBaseModel.Comments" />
+          <EntitySet Name="Likes" EntityType="SimPressDataBaseModel.Likes" />
+          <EntitySet Name="Presentations" EntityType="SimPressDataBaseModel.Presentations" />
+          <EntitySet Name="Users" EntityType="SimPressDataBaseModel.Users" />
+          <AssociationSet Name="FK_Comments_Presentations" Association="SimPressDataBaseModel.FK_Comments_Presentations">
+            <End Role="Presentations" EntitySet="Presentations" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comments_Users" Association="SimPressDataBaseModel.FK_Comments_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Likes_Presentations" Association="SimPressDataBaseModel.FK_Likes_Presentations">
+            <End Role="Presentations" EntitySet="Presentations" />
+            <End Role="Likes" EntitySet="Likes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Likes_Users" Association="SimPressDataBaseModel.FK_Likes_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Likes" EntitySet="Likes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Presentations_Presentations" Association="SimPressDataBaseModel.FK_Presentations_Presentations">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Presentations" EntitySet="Presentations" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Comments">
+          <Key>
+            <PropertyRef Name="CommentId" />
+          </Key>
+          <Property Name="CommentId" Type="Guid" Nullable="false" />
+          <Property Name="PresentationId" Type="Guid" Nullable="false" />
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="Text" Type="String" Nullable="false" MaxLength="1000" Unicode="true" FixedLength="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Presentations" Relationship="SimPressDataBaseModel.FK_Comments_Presentations" FromRole="Comments" ToRole="Presentations" />
+          <NavigationProperty Name="Users" Relationship="SimPressDataBaseModel.FK_Comments_Users" FromRole="Comments" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Likes">
+          <Key>
+            <PropertyRef Name="LikeId" />
+          </Key>
+          <Property Name="LikeId" Type="Guid" Nullable="false" />
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="PresentationId" Type="Guid" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Presentations" Relationship="SimPressDataBaseModel.FK_Likes_Presentations" FromRole="Likes" ToRole="Presentations" />
+          <NavigationProperty Name="Users" Relationship="SimPressDataBaseModel.FK_Likes_Users" FromRole="Likes" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Presentations">
+          <Key>
+            <PropertyRef Name="PresentationId" />
+          </Key>
+          <Property Name="PresentationId" Type="Guid" Nullable="false" />
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="300" Unicode="true" FixedLength="false" />
+          <Property Name="Tags" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="SlidesJSON" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Comments" Relationship="SimPressDataBaseModel.FK_Comments_Presentations" FromRole="Presentations" ToRole="Comments" />
+          <NavigationProperty Name="Likes" Relationship="SimPressDataBaseModel.FK_Likes_Presentations" FromRole="Presentations" ToRole="Likes" />
+          <NavigationProperty Name="Users" Relationship="SimPressDataBaseModel.FK_Presentations_Presentations" FromRole="Presentations" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="Login" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="30" Unicode="true" FixedLength="false" />
+          <Property Name="PasswordHash" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="PasswordSalt" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Info" Type="String" Nullable="false" MaxLength="300" Unicode="true" FixedLength="false" />
+          <Property Name="IsApproved" Type="Boolean" Nullable="false" />
+          <Property Name="Role" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Comments" Relationship="SimPressDataBaseModel.FK_Comments_Users" FromRole="Users" ToRole="Comments" />
+          <NavigationProperty Name="Likes" Relationship="SimPressDataBaseModel.FK_Likes_Users" FromRole="Users" ToRole="Likes" />
+          <NavigationProperty Name="Presentations" Relationship="SimPressDataBaseModel.FK_Presentations_Presentations" FromRole="Users" ToRole="Presentations" />
+        </EntityType>
+        <Association Name="FK_Comments_Presentations">
+          <End Role="Presentations" Type="SimPressDataBaseModel.Presentations" Multiplicity="1" />
+          <End Role="Comments" Type="SimPressDataBaseModel.Comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Presentations">
+              <PropertyRef Name="PresentationId" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="PresentationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comments_Users">
+          <End Role="Users" Type="SimPressDataBaseModel.Users" Multiplicity="1" />
+          <End Role="Comments" Type="SimPressDataBaseModel.Comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Likes_Presentations">
+          <End Role="Presentations" Type="SimPressDataBaseModel.Presentations" Multiplicity="1" />
+          <End Role="Likes" Type="SimPressDataBaseModel.Likes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Presentations">
+              <PropertyRef Name="PresentationId" />
+            </Principal>
+            <Dependent Role="Likes">
+              <PropertyRef Name="PresentationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Likes_Users">
+          <End Role="Users" Type="SimPressDataBaseModel.Users" Multiplicity="1" />
+          <End Role="Likes" Type="SimPressDataBaseModel.Likes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Likes">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Presentations_Presentations">
+          <End Role="Users" Type="SimPressDataBaseModel.Users" Multiplicity="1" />
+          <End Role="Presentations" Type="SimPressDataBaseModel.Presentations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Presentations">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SimPressDataBaseModelStoreContainer" CdmEntityContainer="SimPressDataBaseEntities">
+          <EntitySetMapping Name="Comments"><EntityTypeMapping TypeName="SimPressDataBaseModel.Comments"><MappingFragment StoreEntitySet="Comments">
+            <ScalarProperty Name="CommentId" ColumnName="CommentId" />
+            <ScalarProperty Name="PresentationId" ColumnName="PresentationId" />
+            <ScalarProperty Name="UserId" ColumnName="UserId" />
+            <ScalarProperty Name="Text" ColumnName="Text" />
+            <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Likes"><EntityTypeMapping TypeName="SimPressDataBaseModel.Likes"><MappingFragment StoreEntitySet="Likes">
+            <ScalarProperty Name="LikeId" ColumnName="LikeId" />
+            <ScalarProperty Name="UserId" ColumnName="UserId" />
+            <ScalarProperty Name="PresentationId" ColumnName="PresentationId" />
+            <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Presentations"><EntityTypeMapping TypeName="SimPressDataBaseModel.Presentations"><MappingFragment StoreEntitySet="Presentations">
+            <ScalarProperty Name="PresentationId" ColumnName="PresentationId" />
+            <ScalarProperty Name="UserId" ColumnName="UserId" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+            <ScalarProperty Name="Description" ColumnName="Description" />
+            <ScalarProperty Name="Tags" ColumnName="Tags" />
+            <ScalarProperty Name="SlidesJSON" ColumnName="SlidesJSON" />
+            <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Users"><EntityTypeMapping TypeName="SimPressDataBaseModel.Users"><MappingFragment StoreEntitySet="Users">
+            <ScalarProperty Name="UserId" ColumnName="UserId" />
+            <ScalarProperty Name="Login" ColumnName="Login" />
+            <ScalarProperty Name="Email" ColumnName="Email" />
+            <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+            <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
+            <ScalarProperty Name="Info" ColumnName="Info" />
+            <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+            <ScalarProperty Name="Role" ColumnName="Role" />
+            <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="SimPressDataBaseEntities">
+        <EntityTypeShape EntityType="SimPressDataBaseModel.Comments" Width="1.5" PointX="5.25" PointY="7.5" Height="2.3648893229166665" IsExpanded="true" />
+        <EntityTypeShape EntityType="SimPressDataBaseModel.Likes" Width="1.5" PointX="5.25" PointY="10.625" Height="2.1725878906249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="SimPressDataBaseModel.Presentations" Width="1.5" PointX="3" PointY="10.375" Height="2.9417936197916674" IsExpanded="true" />
+        <EntityTypeShape EntityType="SimPressDataBaseModel.Users" Width="1.5" PointX="0.75" PointY="4.125" Height="3.3263964843749996" IsExpanded="true" />
+        <AssociationConnector Association="SimPressDataBaseModel.FK_Comments_Presentations" ManuallyRouted="false">
+          <ConnectorPoint PointX="3.75" PointY="10.375" />
+          <ConnectorPoint PointX="3.75" PointY="8.6824446614583337" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="8.6824446614583337" />
+          <ConnectorPoint PointX="4.958333333333333" PointY="8.6824446614583337" />
+          <ConnectorPoint PointX="5.25" PointY="8.6824446614583337" />
+        </AssociationConnector>
+        <AssociationConnector Association="SimPressDataBaseModel.FK_Comments_Users" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="5.7881982421875" />
+          <ConnectorPoint PointX="6" PointY="5.7881982421875" />
+          <ConnectorPoint PointX="6" PointY="7.5" />
+        </AssociationConnector>
+        <AssociationConnector Association="SimPressDataBaseModel.FK_Likes_Presentations" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="11.7112939453125" />
+          <ConnectorPoint PointX="5.25" PointY="11.7112939453125" />
+        </AssociationConnector>
+        <AssociationConnector Association="SimPressDataBaseModel.FK_Likes_Users" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="7.451396484375" />
+          <ConnectorPoint PointX="2.625" PointY="7.826396484375" />
+          <ConnectorPoint PointX="4.875" PointY="7.826396484375" />
+          <ConnectorPoint PointX="4.875" PointY="10.248847153846153" />
+          <ConnectorPoint PointX="5.2511528461538459" PointY="10.625" />
+        </AssociationConnector>
+        <AssociationConnector Association="SimPressDataBaseModel.FK_Presentations_Presentations" ManuallyRouted="false">
+          <ConnectorPoint PointX="1.4687475" PointY="7.451396484375" />
+          <ConnectorPoint PointX="1.4687475" PointY="11.845896809895834" />
+          <ConnectorPoint PointX="3" PointY="11.845896809895834" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>
